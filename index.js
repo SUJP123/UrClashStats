@@ -10,11 +10,8 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.set('Views', path.join(__dirname, 'Views'));
 app.set('view engine', 'ejs');
-
-app.listen(port, () =>{
-    console.log(`Serer is running on port=${port}`)
-});
 
 app.get("/", async(req, res)=> 
 {
@@ -51,4 +48,8 @@ app.post("/generate", async(req, res) => {
                 playerTag:playerTag
             });
     }
+});
+
+app.listen(port, () =>{
+    console.log(`Serer is running on port=${port}`)
 });
