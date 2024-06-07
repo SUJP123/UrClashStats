@@ -2,9 +2,9 @@ import express from "express";
 import axios from 'axios';
 import bodyParser from "body-parser"
 const app = express();
-const port = process.env.PORT || 3000;
+const port = 3000;
 const url = "https://api.clashroyale.com/v1/players/%23";
-const token = process.env.CLASH_ROYAL_API_KEY
+const token = 'eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzUxMiIsImtpZCI6IjI4YTMxOGY3LTAwMDAtYTFlYi03ZmExLTJjNzQzM2M2Y2NhNSJ9.eyJpc3MiOiJzdXBlcmNlbGwiLCJhdWQiOiJzdXBlcmNlbGw6Z2FtZWFwaSIsImp0aSI6ImRhNWQ5MWFiLTE1NDYtNDJlZi04MTkwLWIxNWI1MjM2NDg1NiIsImlhdCI6MTcxNzczNDg1NSwic3ViIjoiZGV2ZWxvcGVyL2VmOTI4NjU4LTZjNTQtMjEyMS1lMGUyLTQ3OTRmOGM2MjNjMCIsInNjb3BlcyI6WyJyb3lhbGUiXSwibGltaXRzIjpbeyJ0aWVyIjoiZGV2ZWxvcGVyL3NpbHZlciIsInR5cGUiOiJ0aHJvdHRsaW5nIn0seyJjaWRycyI6WyI5OS4xODUuMjM0LjYwIl0sInR5cGUiOiJjbGllbnQifV19.Gu59CAcSdw_q0dVCp3teqmG8Jwr98e8L38NXkZPgLQj7w8kIH2XBF1IIrDOQbXau9F4RSKJwCFDoSmCkNNJkdg';
 
 app.use(express.static("public"));
 
@@ -14,12 +14,9 @@ app.listen(port, () =>{
     console.log(`Serer is running on port=${port}`)
 });
 
-app.set('Views', './Views');
-app.set('view engine', 'ejs');
-
 app.get("/", async(req, res)=> 
 {
-    res.render("index")
+    res.render("index.ejs")
 });
 
 app.post("/generate", async(req, res) => {
@@ -39,7 +36,7 @@ app.post("/generate", async(req, res) => {
             }
         });
 
-        res.render("index", {
+        res.render("index.ejs", {
             playerStats:player.data,
             playerBattles:battleLog.data
         });
@@ -47,7 +44,7 @@ app.post("/generate", async(req, res) => {
 
     catch (error) {
         console.log(error.response.data)
-        res.render("index",
+        res.render("index.ejs",
             {
                 playerTag:playerTag
             });
