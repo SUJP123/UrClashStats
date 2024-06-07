@@ -14,9 +14,12 @@ app.listen(port, () =>{
     console.log(`Serer is running on port=${port}`)
 });
 
+app.set('Views', './Views');
+app.set('view engine', 'ejs');
+
 app.get("/", async(req, res)=> 
 {
-    res.render("index.ejs")
+    res.render("index")
 });
 
 app.post("/generate", async(req, res) => {
@@ -36,7 +39,7 @@ app.post("/generate", async(req, res) => {
             }
         });
 
-        res.render("index.ejs", {
+        res.render("index", {
             playerStats:player.data,
             playerBattles:battleLog.data
         });
@@ -44,7 +47,7 @@ app.post("/generate", async(req, res) => {
 
     catch (error) {
         console.log(error.response.data)
-        res.render("index.ejs",
+        res.render("index",
             {
                 playerTag:playerTag
             });
