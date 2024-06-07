@@ -10,13 +10,15 @@ app.use(express.static("public"));
 
 app.use(bodyParser.urlencoded({ extended: true}));
 
+app.set('view engine', 'ejs');
+
 app.listen(port, () =>{
     console.log(`Serer is running on port=${port}`)
 });
 
 app.get("/", async(req, res)=> 
 {
-    res.render("index.ejs")
+    res.render("index")
 });
 
 app.post("/generate", async(req, res) => {
@@ -36,7 +38,7 @@ app.post("/generate", async(req, res) => {
             }
         });
 
-        res.render("index.ejs", {
+        res.render("index", {
             playerStats:player.data,
             playerBattles:battleLog.data
         });
@@ -44,7 +46,7 @@ app.post("/generate", async(req, res) => {
 
     catch (error) {
         console.log(error.response.data)
-        res.render("index.ejs",
+        res.render("index",
             {
                 playerTag:playerTag
             });
