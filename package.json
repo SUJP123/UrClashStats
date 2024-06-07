@@ -17,5 +17,8 @@
     "express": "^4.19.2",
     "path": "^0.12.7",
     "url": "^0.11.3"
+  },
+  "devDependencies": {
+    "@flydotio/dockerfile": "^0.5.7"
   }
 }
