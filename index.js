@@ -4,7 +4,7 @@ import bodyParser from "body-parser"
 const app = express();
 const port = process.env.PORT || 3000;
 const url = "https://api.clashroyale.com/v1/players/%23";
-const token = CLASH_ROYAL_API_KEY
+const token = process.env.CLASH_ROYAL_API_KEY
 
 app.use(express.static("public"));
 
