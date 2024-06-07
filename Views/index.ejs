@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clash Royale Player Stats</title>
+    <link rel="stylesheet" type="text/css" href="/styles/styles.css"/>
+</head>
+<body>
+    <h1>See your Clash Royale Stats</h1>
+
+    <!-- Form to input player tag -->
+    <form action="/generate" method="post">
+        <label for="playerTag">Enter your player tag (no #):</label><br />
+        <input type="text" name="playerTag" placeholder="ABCD1234" id="playerTag" /><br /><br />
+        <input type="submit" value="Generate Stats" /> 
+    </form>
+
+    <% if(locals.playerStats) { %>
+        <div class="statsContainer">
+            <form>
+                <h2>Stats for <%= playerStats.name %></h2>
+                <div class="statsRow">
+                    <div>
+                        <label>Player Tag</label><br />
+                        <input type="text" value="<%= playerStats.tag %>" disabled />
+                    </div>
+
+                    <div>
+                        <label>EXP Level</label><br />
+                        <input type="text" value="<%= playerStats.expLevel %>" disabled />
+                    </div>
+
+                    <div>
+                        <label>Trophies</label><br />
+                        <input type="text" value="<%= playerStats.trophies %>" disabled />
+                    </div>                      
+                </div>
+            
+
+                <div class="statsRow">
+                    <div>
+                        <label>Wins</label><br />
+                        <input type="text" value="<%= playerStats.wins %>" disabled />
+                    </div>
+
+                    <div>
+                        <label>Losses</label><br />
+                        <input type="text" value="<%= playerStats.losses %>" disabled />
+                    </div>
+
+                    <div>
+                        <label>Battle Count</label><br />
+                        <input type="text" value="<%= playerStats.battleCount %>" disabled />
+                    </div>           
+                </div>   
+            </form>
+        </div>
+    <% } %>
+
+    <% if(locals.playerBattles) { %>
+        <div class="battleLog">
+            <h2>Recent Battle Log</h2>
+            <!-- Display recent battle logs -->
+            <% playerBattles.forEach((battle, index) => { %>
+                <div class="battleEntry">
+                    <h3>Battle <%= index + 1 %></h3>
+                    <p><strong>Game Mode:</strong> <%= battle.gameMode.name %></p>
+                    <% battle.opponent.forEach((opponent, i) => { %>
+                        <div class="opponent">
+                            <% if (opponent.trophyChange > 0) { %>
+                                <p><strong>Result:</strong>Win</p>
+                            <% } else { %>
+                                <p><strong>Result:</strong>Loss</p>
+                            <% } %>
+                            <p><strong>Opponent Name:</strong><%= opponent.name %></p>
+                            <p><strong>Opponent Trophies:</strong> <%= opponent.startingTrophies %></p>
+                            <p><strong>Trophy Change:</strong> <%= opponent.trophyChange %></p>
+                            <p><strong>Crowns:</strong> <%= opponent.crowns %></p>
+                            <p><strong>Opponent's Cards:</strong></p>
+                            <ul>
+                                <% opponent.cards.forEach((card, index) => { %>
+                                    <img src="/images/cards/<%= card.name.toLowerCase().replace(/\s+/g, '-') %>.png" width="128px" height="128px" alt="<%= card.name %>"/>
+                                <% }); %>
+                            </ul>
+                        </div>
+                    <% }); %>
+                    <!-- Display cards used by the player -->
+                    <div class="playerCards">
+                        <h4>Your Cards:</h4>
+                        <ul>
+                            <% battle.team.forEach((player, k) => { %>
+                                <% if (player.tag === playerStats.tag) { %>
+                                    <% player.cards.forEach((card, index) => { %>
+                                        <img src="/images/cards/<%= card.name.toLowerCase().replace(/\s+/g, '-') %>.png" width="128px" height="128px" alt="<%= card.name %>"/>
+                                    <% }); %>
+                                <% } %>
+                            <% }); %>
+                        </ul>
+                    </div>
+                </div>
+            <% }); %>
+        </div>
+    <% } %>
+
+    <% if(locals.playerStats && locals.playerBattles) { %>
+        <div class="winPercentage">
+            <h2>Win Percentage by Card</h2>
+            <% const cardStats = {}; %>
+            <!-- Iterate through player battles to calculate win percentage for each card -->
+            <% playerBattles.forEach((battle) => { %>
+                <% const playerDeck = battle.team.find(player => player.tag === playerStats.tag); %>
+                <% if (playerDeck) { %>
+                    <% const trophyChange = playerDeck.trophyChange; %>
+                    <% const won = trophyChange > 0; %>
+                    <% playerDeck.cards.forEach((card) => { %>
+                        <% if (!cardStats[card.name]) { cardStats[card.name] = { wins: 0, losses: 0 }; } %>
+                        <% if (won) { %>
+                            <% cardStats[card.name].wins += 1; %>
+                        <% } else { %>
+                            <% cardStats[card.name].losses += 1; %>
+                        <% } %>
+                    <% }); %>
+                <% } %>
+            <% }); %>
+            <!-- Display win percentage for each card -->
+            <div class="cardStats">
+                <% Object.entries(cardStats).forEach(([cardName, stats]) => { %>
+                    <div class="cardStat">
+                        <img src="/images/cards/<%= cardName.toLowerCase().replace(/\s+/g, '-') %>.png" width="128px" height="128px" alt="<%= cardName %>"/>
+                        <p><strong><%= cardName %>:</strong></p>
+                        <p><%= ((stats.wins / (stats.wins + stats.losses)) * 100 || 0).toFixed(2) %>%</p>
+                    </div>
+                <% }); %>
+            </div>
+        </div>
+    <% } %>
+    
+</body>
+</html>

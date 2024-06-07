@@ -1,0 +1,155 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    display: grid;
+    height: 100vh;
+    place-items: center;
+    font-family: 'Poppins', sans-serif;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #b19e95;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+}
+
+.container {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.inputForm,
+.statsContainer,
+.battleLog,
+.playerCards,
+.winPercentage {
+    width: 80%;
+    max-width: 800px;
+    padding: 20px;
+    margin: 20px auto;
+    border: 3px solid #b19e95; /* Increase border width */
+    border-radius: 10px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.statsRow {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 20px;
+}
+
+input[type="text"],
+input[type="number"],
+input[type="submit"],
+textarea {
+    width: 100%;
+    padding: 10px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+    outline: none;
+}
+
+input[type="submit"] {
+    cursor: pointer;
+    background-color: #b19e95;
+    color: white;
+    border: none;
+    transition: background-color 0.3s;
+}
+
+input[type="submit"]:hover {
+    background-color: #937b6a;
+}
+
+footer {
+    background-color: #b19e95;
+    width: 100%;
+    padding: 20px 0;
+    text-align: center;
+    color: white;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    font-size: 14px;
+}
+
+.battleEntry {
+    margin-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+    padding-bottom: 20px;
+}
+
+.opponent {
+    margin-bottom: 20px;
+}
+
+.opponent img,
+.playerCards img {
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.winPercentage ul {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.winPercentage img {
+    margin-right: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.winPercentage p {
+    margin-bottom: 10px;
+}
+
+h1, h2, h3, h4 {
+    color: #333;
+    margin-bottom: 15px;
+}
+
+
+.winPercentage {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    border: 2px solid #b19e95;
+    border-radius: 5px;
+}
+
+.cardStats {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 20px;
+}
+
+.cardStat {
+    text-align: center;
+}
+
+.cardStat img {
+    width: 128px;
+    height: 128px;
+    margin-bottom: 10px;
+}
+
+.cardStat p {
+    margin-bottom: 5px;
+}
