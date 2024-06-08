@@ -3,7 +3,7 @@
 This web application uses the public Clash Royale API to fetch player data and player battle logs, providing players with 
 insights into their performance. Built using Node.js, EJS, and CSS, this project offers features such as generating and viewing player stats, 
 analyzing recent battle logs, and determining win percentages based on specific cards used in battles. This site is designed to help
-players see common trends with cards, andsee which strategies result in a higher win percentage. Some features to implement: Win percentage against oponent decks,
+players see common trends with cards, and see which strategies result in a higher win percentage. Some features to implement: Win percentage against oponent decks,
 clan data, rankings...
 
 ## Installation
