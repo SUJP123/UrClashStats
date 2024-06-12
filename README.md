@@ -6,6 +6,9 @@ analyzing recent battle logs, and determining win percentages based on specific 
 players see common trends with cards, and see which strategies result in a higher win percentage. Some features to implement: Win percentage against oponent decks,
 clan data, rankings...
 
+## Testing App
+Try out my user ID -> G000PQUJ8 :)
+
 ## Installation
 
 1. Clone this repository.
